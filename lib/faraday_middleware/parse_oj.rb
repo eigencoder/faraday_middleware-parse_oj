@@ -24,8 +24,8 @@ module FaradayMiddleware
       if data.respond_to?('deep_transform_keys!')
         data.deep_transform_keys! { |key| key.underscore.to_sym }
       else
-        data = {'root'=> data} # Wrap data to ensure deep_transform_keys works
-        data.deep_transform_keys! { |key| key.underscore.to_sym }
+        data = {root: data} # Wrap data to ensure deep_transform_keys works
+        data.deep_transform_keys! { |key| key.to_s.underscore.to_sym } # Base key may not have been a string
         data = data[:root] # Back to original structure
       end
     end
